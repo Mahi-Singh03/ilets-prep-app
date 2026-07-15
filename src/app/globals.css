@@ -1,24 +1,44 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Red/Ruby theme - Default */
+  --primary: #8B0000;
+  --secondary: #B22222;
+  --background: #FFFFFF;
+  --foreground: #1F2933;
+  --text: #1F2933;
+  --accent: #FFE4E4;
+  --card-bg: #FFFFFF;
+  --border: #E5E7EB;
+  --shadow: rgba(0,0,0,0.1);
+  --muted: #6B7280;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  
+  /* Light mode only */
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-text: var(--text);
+  --color-accent: var(--accent);
+  --color-card-bg: var(--card-bg);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Light mode - Primary display */
+html,
 body {
   background: var(--background);
   color: var(--foreground);

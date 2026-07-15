@@ -1,0 +1,397 @@
+{
+  "themes": {
+    "jobAppRuby": {
+      "name": " App Ruby",
+      "description": "Original deep crimson and red theme",
+      "colors": {
+        "primary": "#8B0000",
+        "secondary": "#B22222",
+        "background": "#FFFFFF",
+        "text": "#1F2933",
+        "accent": "#FFE4E4",
+        "cardBg": "#FFFFFF",
+        "border": "#E5E7EB",
+        "shadow": "rgba(0,0,0,0.1)",
+        "muted": "#6B7280",
+        "success": "#10B981",
+        "warning": "#F59E0B",
+        "error": "#EF4444"
+      }
+    },
+    "luxuryGold": {
+      "name": "Luxury Gold",
+      "description": "Opulent dark base with warm champagne gold accents",
+      "colors": {
+        "primary": "#1A1A1A",
+        "secondary": "#C9A96E",
+        "background": "#F8F5F0",
+        "text": "#222222",
+        "accent": "#E5C07B",
+        "cardBg": "#FFFFFF",
+        "border": "#E8E2D9",
+        "shadow": "rgba(0,0,0,0.08)",
+        "muted": "#9E8E7A",
+        "success": "#4A7C59",
+        "warning": "#C9A96E",
+        "error": "#C0392B"
+      }
+    },
+    "natureGreen": {
+      "name": "Nature Green",
+      "description": "Earthy forest tones inspired by lush canopies",
+      "colors": {
+        "primary": "#2F5D50",
+        "secondary": "#7FB77E",
+        "background": "#F4F7F5",
+        "text": "#1E2D2F",
+        "accent": "#A7D7C5",
+        "cardBg": "#FFFFFF",
+        "border": "#D5E8DF",
+        "shadow": "rgba(47,93,80,0.10)",
+        "muted": "#6B8F80",
+        "success": "#3A7D44",
+        "warning": "#D4A017",
+        "error": "#C0392B"
+      }
+    },
+    "oceanBlue": {
+      "name": "Ocean Blue",
+      "description": "Deep navy depths with clear sky-blue highlights",
+      "colors": {
+        "primary": "#1F3C88",
+        "secondary": "#5893D4",
+        "background": "#F0F5FF",
+        "text": "#1A1A2E",
+        "accent": "#B3D4FC",
+        "cardBg": "#FFFFFF",
+        "border": "#D0E4F7",
+        "shadow": "rgba(31,60,136,0.10)",
+        "muted": "#6A90C0",
+        "success": "#2E7D52",
+        "warning": "#D4A017",
+        "error": "#C0392B"
+      }
+    },
+    "sunsetRed": {
+      "name": "Sunset Red",
+      "description": "Warm terracotta and coral evoking golden-hour skies",
+      "colors": {
+        "primary": "#C44536",
+        "secondary": "#F8B195",
+        "background": "#FFF5F2",
+        "text": "#3E2723",
+        "accent": "#F67280",
+        "cardBg": "#FFFFFF",
+        "border": "#FADDDA",
+        "shadow": "rgba(196,69,54,0.10)",
+        "muted": "#B07060",
+        "success": "#4A7C59",
+        "warning": "#E59400",
+        "error": "#A93226"
+      }
+    },
+    "minimalGrey": {
+      "name": "Minimal Grey",
+      "description": "Clean slate palette with precise corporate neutrals",
+      "colors": {
+        "primary": "#2C3E50",
+        "secondary": "#BDC3C7",
+        "background": "#F8FAFC",
+        "text": "#1F2933",
+        "accent": "#5DADE2",
+        "cardBg": "#FFFFFF",
+        "border": "#E4E9EE",
+        "shadow": "rgba(44,62,80,0.08)",
+        "muted": "#7F8C8D",
+        "success": "#27AE60",
+        "warning": "#F39C12",
+        "error": "#E74C3C"
+      }
+    },
+    "rosePink": {
+      "name": "Rose Pink",
+      "description": "Soft blush tones with dusty mauve sophistication",
+      "colors": {
+        "primary": "#A26769",
+        "secondary": "#D5B9B2",
+        "background": "#FFF7F6",
+        "text": "#4A2C2A",
+        "accent": "#F2D7D5",
+        "cardBg": "#FFFFFF",
+        "border": "#F0DDD9",
+        "shadow": "rgba(162,103,105,0.10)",
+        "muted": "#B08C8E",
+        "success": "#4A7C59",
+        "warning": "#C9A96E",
+        "error": "#B04040"
+      }
+    },
+    "tealFresh": {
+      "name": "Teal Fresh",
+      "description": "Vibrant teal energy with minty cool undertones",
+      "colors": {
+        "primary": "#008080",
+        "secondary": "#4ECDC4",
+        "background": "#F0FFFF",
+        "text": "#003333",
+        "accent": "#A0E7E5",
+        "cardBg": "#FFFFFF",
+        "border": "#C5EDED",
+        "shadow": "rgba(0,128,128,0.10)",
+        "muted": "#5A9E9E",
+        "success": "#2D7A5A",
+        "warning": "#D4A017",
+        "error": "#C0392B"
+      }
+    },
+    "royalPurple": {
+      "name": "Royal Purple",
+      "description": "Regal violet hues with dreamy lavender softness",
+      "colors": {
+        "primary": "#4A3F8C",
+        "secondary": "#9D8DF1",
+        "background": "#F6F5FF",
+        "text": "#2E2A4D",
+        "accent": "#C6BFFF",
+        "cardBg": "#FFFFFF",
+        "border": "#DDD8FA",
+        "shadow": "rgba(74,63,140,0.10)",
+        "muted": "#7A70AA",
+        "success": "#3A7D5F",
+        "warning": "#C9A030",
+        "error": "#C0392B"
+      }
+    },
+    "sandyBeige": {
+      "name": "Sandy Beige",
+      "description": "Warm desert sands with natural linen warmth",
+      "colors": {
+        "primary": "#8B6F47",
+        "secondary": "#D9C7A3",
+        "background": "#FAF6EF",
+        "text": "#3E3226",
+        "accent": "#EAD7B0",
+        "cardBg": "#FFFFFF",
+        "border": "#EDE3D0",
+        "shadow": "rgba(139,111,71,0.10)",
+        "muted": "#A08C70",
+        "success": "#4A7C59",
+        "warning": "#C9A030",
+        "error": "#C0392B"
+      }
+    },
+    "cleanBlue": {
+      "name": "Clean Blue",
+      "description": "Crisp white with electric blue — pure and modern",
+      "colors": {
+        "primary": "#2563EB",
+        "secondary": "#93C5FD",
+        "background": "#FFFFFF",
+        "text": "#111827",
+        "accent": "#DBEAFE",
+        "cardBg": "#F9FAFB",
+        "border": "#E5E7EB",
+        "shadow": "rgba(37,99,235,0.08)",
+        "muted": "#6B7280",
+        "success": "#059669",
+        "warning": "#D97706",
+        "error": "#DC2626"
+      }
+    },
+    "midnightVelvet": {
+      "name": "Midnight Velvet",
+      "description": "Deep indigo night sky with electric violet sparks",
+      "colors": {
+        "primary": "#0D0D2B",
+        "secondary": "#6C63FF",
+        "background": "#F3F2FF",
+        "text": "#0A0A1A",
+        "accent": "#A89CFF",
+        "cardBg": "#FFFFFF",
+        "border": "#D8D5F5",
+        "shadow": "rgba(13,13,43,0.14)",
+        "muted": "#5A5880",
+        "success": "#22C55E",
+        "warning": "#F59E0B",
+        "error": "#EF4444"
+      }
+    },
+    "cherryBlossom": {
+      "name": "Cherry Blossom",
+      "description": "Japanese sakura pink with soft ivory serenity",
+      "colors": {
+        "primary": "#C75B7A",
+        "secondary": "#F4A7B9",
+        "background": "#FFF8FA",
+        "text": "#3D1A24",
+        "accent": "#FAD4DF",
+        "cardBg": "#FFFFFF",
+        "border": "#F5D5DF",
+        "shadow": "rgba(199,91,122,0.10)",
+        "muted": "#C08A98",
+        "success": "#4CAF50",
+        "warning": "#FF9800",
+        "error": "#F44336"
+      }
+    },
+    "arcticFrost": {
+      "name": "Arctic Frost",
+      "description": "Glacial whites and icy blues from the frozen north",
+      "colors": {
+        "primary": "#1B3A5C",
+        "secondary": "#7EC8E3",
+        "background": "#F0F8FF",
+        "text": "#0D1F33",
+        "accent": "#B8E4F2",
+        "cardBg": "#FFFFFF",
+        "border": "#D0EAF5",
+        "shadow": "rgba(27,58,92,0.09)",
+        "muted": "#6896B8",
+        "success": "#2196F3",
+        "warning": "#FF9800",
+        "error": "#F44336"
+      }
+    },
+    "espressoRoast": {
+      "name": "Espresso Roast",
+      "description": "Rich coffee browns with warm cream and caramel",
+      "colors": {
+        "primary": "#2C1A0E",
+        "secondary": "#A0522D",
+        "background": "#FDF8F4",
+        "text": "#1A0D06",
+        "accent": "#D4956A",
+        "cardBg": "#FFFFFF",
+        "border": "#EEE0D4",
+        "shadow": "rgba(44,26,14,0.10)",
+        "muted": "#8B6B52",
+        "success": "#558B2F",
+        "warning": "#F57F17",
+        "error": "#B71C1C"
+      }
+    },
+    "neonNight": {
+      "name": "Neon Night",
+      "description": "Dark cyberpunk streets lit by electric lime and magenta",
+      "colors": {
+        "primary": "#0A0A0A",
+        "secondary": "#39FF14",
+        "background": "#F5FFF5",
+        "text": "#0A0A0A",
+        "accent": "#FF00FF",
+        "cardBg": "#FFFFFF",
+        "border": "#D4F0D4",
+        "shadow": "rgba(57,255,20,0.12)",
+        "muted": "#4A7A4A",
+        "success": "#39FF14",
+        "warning": "#FFD700",
+        "error": "#FF073A"
+      }
+    },
+    "autumnHarvest": {
+      "name": "Autumn Harvest",
+      "description": "Fallen leaves in amber, russet, and pumpkin spice",
+      "colors": {
+        "primary": "#7B3F00",
+        "secondary": "#D2691E",
+        "background": "#FFF8F0",
+        "text": "#2D1500",
+        "accent": "#FFAB40",
+        "cardBg": "#FFFFFF",
+        "border": "#F0DEC8",
+        "shadow": "rgba(123,63,0,0.10)",
+        "muted": "#A0724A",
+        "success": "#558B2F",
+        "warning": "#F57F17",
+        "error": "#B71C1C"
+      }
+    },
+    "slateMocha": {
+      "name": "Slate Mocha",
+      "description": "Sophisticated charcoal grey warmed by mocha undertones",
+      "colors": {
+        "primary": "#3B3535",
+        "secondary": "#9C8275",
+        "background": "#F7F5F4",
+        "text": "#1C1717",
+        "accent": "#C4AD9D",
+        "cardBg": "#FFFFFF",
+        "border": "#E8E0DB",
+        "shadow": "rgba(59,53,53,0.09)",
+        "muted": "#7A6E6A",
+        "success": "#4CAF50",
+        "warning": "#FFA000",
+        "error": "#D32F2F"
+      }
+    },
+    "emeraldIsle": {
+      "name": "Emerald Isle",
+      "description": "Rich jewel-green velvet with antique gold trim",
+      "colors": {
+        "primary": "#046307",
+        "secondary": "#50C878",
+        "background": "#F2FBF3",
+        "text": "#021F03",
+        "accent": "#A8E6B0",
+        "cardBg": "#FFFFFF",
+        "border": "#C8EAC9",
+        "shadow": "rgba(4,99,7,0.10)",
+        "muted": "#4A8A50",
+        "success": "#1B5E20",
+        "warning": "#F9A825",
+        "error": "#C62828"
+      }
+    },
+    "duskLavender": {
+      "name": "Dusk Lavender",
+      "description": "Twilight mauve with soft grey-purple haze",
+      "colors": {
+        "primary": "#5C4F7C",
+        "secondary": "#B39DDB",
+        "background": "#F9F7FF",
+        "text": "#2A2140",
+        "accent": "#D7CCF5",
+        "cardBg": "#FFFFFF",
+        "border": "#E5DCFA",
+        "shadow": "rgba(92,79,124,0.09)",
+        "muted": "#8A7BA8",
+        "success": "#43A047",
+        "warning": "#FB8C00",
+        "error": "#E53935"
+      }
+    },
+    "volcanicAsh": {
+      "name": "Volcanic Ash",
+      "description": "Monochrome obsidian with smoldering ember highlights",
+      "colors": {
+        "primary": "#1C1C1E",
+        "secondary": "#636366",
+        "background": "#F2F2F7",
+        "text": "#1C1C1E",
+        "accent": "#FF6B35",
+        "cardBg": "#FFFFFF",
+        "border": "#E5E5EA",
+        "shadow": "rgba(28,28,30,0.10)",
+        "muted": "#8E8E93",
+        "success": "#34C759",
+        "warning": "#FF9F0A",
+        "error": "#FF3B30"
+      }
+    }
+  },
+  "cssVariableMap": {
+    "primary":    "--primary",
+    "secondary":  "--secondary",
+    "background": "--background",
+    "text":       "--text",
+    "accent":     "--accent",
+    "cardBg":     "--card-bg",
+    "border":     "--border",
+    "shadow":     "--shadow",
+    "muted":      "--muted",
+    "success":    "--success",
+    "warning":    "--warning",
+    "error":      "--error"
+  },
+  "defaultTheme": "jobAppRuby"
+}
