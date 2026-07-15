@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/dbConnect";
+import dbConnect from "@/src/lib/DBconnection";
 import WritingQuestion from "@/src/models/writing";
 import cloudinary from "@/src/lib/cloudinary";
 
 export async function GET(request, { params }) {
   await dbConnect();
 
-  const question = await WritingQuestion.findById(params.id);
+  const { id } = await params;
+
+  const question = await WritingQuestion.findById(id);
 
   if (!question) {
     return NextResponse.json(
@@ -22,7 +24,9 @@ export async function PUT(request, { params }) {
   try {
     await dbConnect();
 
-    const question = await WritingQuestion.findById(params.id);
+    const { id } = await params;
+
+    const question = await WritingQuestion.findById(id);
 
     if (!question) {
       return NextResponse.json(
@@ -85,7 +89,9 @@ export async function DELETE(request, { params }) {
   try {
     await dbConnect();
 
-    const question = await WritingQuestion.findById(params.id);
+    const { id } = await params;
+
+    const question = await WritingQuestion.findById(id);
 
     if (!question) {
       return NextResponse.json(

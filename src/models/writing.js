@@ -9,11 +9,27 @@ const WritingQuestionSchema = new mongoose.Schema(
       required: true,
     },
 
-    // Question title
-    title: {
+      title: {
       type: String,
       required: true,
-      trim: true,
+      enum: [
+        // Task 1
+        "Line Chart",
+        "Bar Chart",
+        "Pie Chart",
+        "Table",
+        "Process Diagram",
+        "Map",
+        "Mixed Charts",
+        "Flow Chart",
+
+        // Task 2
+        "Opinion Essay",
+        "Discussion Essay",
+        "Advantages & Disadvantages",
+        "Problem & Solution",
+        "Double Question",
+      ],
     },
 
     // IELTS question

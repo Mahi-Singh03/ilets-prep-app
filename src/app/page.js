@@ -6,6 +6,28 @@ import { useState, useEffect, useCallback } from "react";
 // Helper Constants
 // --------------------------------------------------------------
 const API_URL = "/api/admin/writing";
+
+// Title options based on task type
+const TASK_TITLES = {
+  1: [
+    "Line Chart",
+    "Bar Chart",
+    "Pie Chart",
+    "Table",
+    "Process Diagram",
+    "Map",
+    "Mixed Charts",
+    "Flow Chart",
+  ],
+  2: [
+    "Opinion Essay",
+    "Discussion Essay",
+    "Advantages & Disadvantages",
+    "Problem & Solution",
+    "Double Question",
+  ],
+};
+
 const INITIAL_FORM = {
   taskType: 1,
   title: "",
@@ -26,7 +48,7 @@ export default function IELTSWritingAdminPage() {
   const [deletingId, setDeletingId] = useState(null);
   
   // Form State
-  const [form, setForm] = useState({ ...INITIAL_FORM });
+  const [form, setForm] = useState({ ...INITIAL_FORM, title: TASK_TITLES[1][0] });
   const [imagePreview, setImagePreview] = useState(null);
   const [editId, setEditId] = useState(null); // null = add mode, string = edit mode
   
@@ -69,15 +91,31 @@ export default function IELTSWritingAdminPage() {
   // -------------------------------------------
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: name === "taskType" ? parseInt(value) : value,
-    }));
+    
+    if (name === "taskType") {
+      const newTaskType = parseInt(value);
+      // Reset title when switching task types
+      setForm((prev) => ({
+        ...prev,
+        taskType: newTaskType,
+        title: TASK_TITLES[newTaskType][0], // Set first option as default
+      }));
 
-    // Reset image when switching to Task 2
-    if (name === "taskType" && parseInt(value) === 2) {
-      setForm((prev) => ({ ...prev, image: null }));
-      setImagePreview(null);
+      // Reset image when switching to Task 2
+      if (newTaskType === 2) {
+        setForm((prev) => ({ ...prev, image: null }));
+        setImagePreview(null);
+      }
+    } else if (name === "title") {
+      setForm((prev) => ({
+        ...prev,
+        title: value,
+      }));
+    } else {
+      setForm((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
     }
   };
 
@@ -94,7 +132,7 @@ export default function IELTSWritingAdminPage() {
   };
 
   const resetForm = () => {
-    setForm({ ...INITIAL_FORM });
+    setForm({ ...INITIAL_FORM, title: TASK_TITLES[1][0] });
     setImagePreview(null);
     setEditId(null);
   };
@@ -105,6 +143,10 @@ export default function IELTSWritingAdminPage() {
     // Validation
     if (!form.title.trim()) {
       showMessage("error", "Title is required.");
+      return;
+    }
+    if (!TASK_TITLES[form.taskType].includes(form.title)) {
+      showMessage("error", "Please select a valid title from the dropdown.");
       return;
     }
     if (!form.description.trim()) {
@@ -232,6 +274,30 @@ export default function IELTSWritingAdminPage() {
       month: "short",
       day: "numeric",
     });
+  };
+
+  // Get the display color for title badges
+  const getTitleColor = (title, taskType) => {
+    const task1Colors = {
+      "Line Chart": "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
+      "Bar Chart": "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+      "Pie Chart": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
+      "Table": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300",
+      "Process Diagram": "bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300",
+      "Map": "bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-300",
+      "Mixed Charts": "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
+      "Flow Chart": "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300",
+    };
+    
+    const task2Colors = {
+      "Opinion Essay": "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300",
+      "Discussion Essay": "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300",
+      "Advantages & Disadvantages": "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
+      "Problem & Solution": "bg-lime-100 text-lime-800 dark:bg-lime-900/30 dark:text-lime-300",
+      "Double Question": "bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-300",
+    };
+
+    return taskType === 1 ? task1Colors[title] || "" : task2Colors[title] || "";
   };
 
   // -------------------------------------------
@@ -393,23 +459,33 @@ export default function IELTSWritingAdminPage() {
               </div>
             </div>
 
-            {/* Title */}
+            {/* Title Dropdown */}
             <div>
               <label
                 htmlFor="title"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
-                Title
+                Title <span className="text-red-500">*</span>
               </label>
-              <input
-                type="text"
+              <select
                 id="title"
                 name="title"
                 value={form.title}
                 onChange={handleInputChange}
-                placeholder="e.g., Bar Chart of Population Growth"
-                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              />
+                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              >
+                <option value="" disabled>
+                  Select a title...
+                </option>
+                {TASK_TITLES[form.taskType].map((title) => (
+                  <option key={title} value={title}>
+                    {title}
+                  </option>
+                ))}
+              </select>
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                Select the type of question for Task {form.taskType}
+              </p>
             </div>
 
             {/* Description */}
@@ -418,7 +494,7 @@ export default function IELTSWritingAdminPage() {
                 htmlFor="description"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
-                Description
+                Description <span className="text-red-500">*</span>
               </label>
               <textarea
                 id="description"
@@ -435,7 +511,7 @@ export default function IELTSWritingAdminPage() {
             {form.taskType === 1 && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Image Upload
+                  Image Upload <span className="text-red-500">*</span>
                 </label>
                 <div className="space-y-3">
                   {/* Preview */}
@@ -611,8 +687,10 @@ export default function IELTSWritingAdminPage() {
                             Task {q.taskType}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-white font-medium max-w-xs truncate">
-                          {q.title}
+                        <td className="px-6 py-4">
+                          <span className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-semibold ${getTitleColor(q.title, q.taskType)}`}>
+                            {q.title}
+                          </span>
                         </td>
                         <td className="px-6 py-4">
                           {q.image?.url ? (
@@ -669,7 +747,9 @@ export default function IELTSWritingAdminPage() {
                           }`}>
                             Task {q.taskType}
                           </span>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">{formatDate(q.createdAt)}</span>
+                          <span className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-semibold ${getTitleColor(q.title, q.taskType)}`}>
+                            {q.title}
+                          </span>
                         </div>
                         <div className="flex items-center gap-1">
                           <button
@@ -690,7 +770,9 @@ export default function IELTSWritingAdminPage() {
                           </button>
                         </div>
                       </div>
-                      <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{q.title}</h4>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-500 dark:text-gray-400">{formatDate(q.createdAt)}</span>
+                      </div>
                       {q.image?.url && (
                         <img
                           src={q.image.url}
@@ -728,4 +810,4 @@ export default function IELTSWritingAdminPage() {
       `}</style>
     </div>
   );
-}
+} 
