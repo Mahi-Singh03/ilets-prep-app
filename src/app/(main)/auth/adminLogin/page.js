@@ -46,7 +46,7 @@ export default function AdminLogin() {
 
       // Redirect to admin dashboard with success animation
       setTimeout(() => {
-        router.push('/mahi')
+        router.push('/ilets')
       }, 300)
     } catch (err) {
       setError(err.message || 'An error occurred. Please try again.')

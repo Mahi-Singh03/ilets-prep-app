@@ -52,15 +52,20 @@ import {
   Gift,
   Share2,
   Info,
+   NotebookPen,
+   BookOpenText,
+   Headset,
+   Mic
 } from "lucide-react";
+
 
 // Main navigation links (visible on desktop without "More")
 const mainNavLinks = [
   { name: "Home", href: "/", icon: Home, badge: null, category: "main" },
-  { name: "Code Space", href: "/code-space", icon: FaCode, badge: null, category: "main" },
-  { name: "Notes", href: "/notes", icon: GrDocumentNotes, badge: "New", category: "main" },
-  { name: "Collaborate", href: "/collaborate", icon: AiOutlineTeam, badge: null, category: "main" },
-  { name: "Help", href: "/help", icon: IoIosHelpBuoy, badge: null, category: "main" },
+  { name: "Wriring", href: "/wriring", icon:  NotebookPen , badge: null, category: "main" },
+  { name: "Reading", href: "/reading", icon: BookOpenText, badge: "New", category: "main" },
+  { name: "Listning", href: "/listning", icon: Headset , badge: null, category: "main" },
+  { name: "Speaking", href: "/speaking", icon: Mic, badge: null, category: "main" },
 ];
 
 // Secondary navigation links (shown in "More" dropdown on desktop)
@@ -75,7 +80,7 @@ const allNavLinks = [...mainNavLinks, ...secondaryNavLinks];
 
 // Quick action items for mobile
 const quickActions = [
-  { name: "Notes", icon: GrDocumentNotes, href: "/jobs", color: "primary", requiresAuth: true},
+  { name: "Profile", icon: GrDocumentNotes, href: "/jobs", color: "primary", requiresAuth: true},
   { name: "About", icon: Bookmark, href: "/about  ", color: "secondary", requiresAuth: false },
   { name: "Notifications", icon: Bell, href: "/notifications", color: "accent", requiresAuth: true },
   { name: "Help Center", icon: HelpCircle, href: "/help", color: "muted" },
@@ -791,7 +796,7 @@ const Navbar = memo(() => {
                     boxShadow: '0 10px 15px -3px var(--shadow)'
                   }}
                 >
-                  <img src="https://res.cloudinary.com/dyigmfiar/image/upload/v1778834672/image_pwldog.png" alt="Codership AI Logo" className="w-full h-full object-contain p-1.5" />
+                  <img src="https://res.cloudinary.com/dyigmfiar/image/upload/v1778834672/image_pwldog.png" alt="IELETSs Logo" className="w-full h-full object-contain p-1.5" />
                 </div>
                 <div
                   className="absolute -top-1 -right-1 w-4 h-4 rounded-full animate-ping opacity-75"
@@ -803,9 +808,9 @@ const Navbar = memo(() => {
                   className="text-lg sm:text-3xl font-bold leading-tight"
                   style={{ color: "var(--primary)" }}
                 >
-                  CoderShip AI
+                  Angrej
                 </h1>
-                <p className="hidden sm:block text-xs text-muted -mt-0.5 font-medium tracking-wide">Learn, Code and Grow</p>
+                <p className="hidden sm:block text-xs text-muted -mt-0.5 font-medium tracking-wide">Learn, Speak and Grow</p>
               </div>
             </Link>
 
