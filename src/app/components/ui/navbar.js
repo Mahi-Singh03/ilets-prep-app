@@ -62,9 +62,9 @@ import {
 // Main navigation links (visible on desktop without "More")
 const mainNavLinks = [
   { name: "Home", href: "/", icon: Home, badge: null, category: "main" },
-  { name: "Wriring", href: "/wriring", icon:  NotebookPen , badge: null, category: "main" },
+  { name: "Writing", href: "/writing", icon:  NotebookPen , badge: null, category: "main" },
   { name: "Reading", href: "/reading", icon: BookOpenText, badge: "New", category: "main" },
-  { name: "Listning", href: "/listning", icon: Headset , badge: null, category: "main" },
+  { name: "Listening", href: "/listening", icon: Headset , badge: null, category: "main" },
   { name: "Speaking", href: "/speaking", icon: Mic, badge: null, category: "main" },
 ];
 
