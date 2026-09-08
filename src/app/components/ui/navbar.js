@@ -808,9 +808,9 @@ const Navbar = memo(() => {
                   className="text-lg sm:text-3xl font-bold leading-tight"
                   style={{ color: "var(--primary)" }}
                 >
-                  Angrej
+                  ਅੰਗਰੇਜ਼ੀ ਸਿੱਖੋ
                 </h1>
-                <p className="hidden sm:block text-xs text-muted -mt-0.5 font-medium tracking-wide">Learn, Speak and Grow</p>
+               
               </div>
             </Link>
 

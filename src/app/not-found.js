@@ -274,8 +274,8 @@ const ComingSoon = () => {
           <motion.div
             key={i}
             initial={{ 
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: `${(i * 37) % 100}%`,
+              y: `${(i * 53) % 100}%`,
               opacity: 0
             }}
             animate={{
@@ -283,9 +283,9 @@ const ComingSoon = () => {
               opacity: [0, 0.3, 0],
             }}
             transition={{
-              duration: Math.random() * 3 + 2,
+              duration: 2 + (i % 4),
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: (i % 5) * 0.4,
             }}
             className="absolute w-1 h-1 rounded-full"
             style={{ backgroundColor: 'var(--primary)' }}

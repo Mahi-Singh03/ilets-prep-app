@@ -9,7 +9,7 @@ const COLOR_THEME_STORAGE_KEY = "app-color-theme";
 const THEME_INITIALIZED_KEY = "app-theme-initialized";
 
 const themeKeys = Object.keys(styleConfig.themes || {});
-const fallbackThemeKey = "jobAppRuby"; // Red theme as default
+const fallbackThemeKey = "natureGreen"; // Green theme as default
 
 const applyThemeToDocument = (colorThemeKey) => {
   if (typeof document === "undefined") {
@@ -60,10 +60,7 @@ const initializeThemeSync = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [colorTheme, setColorTheme] = useState(() => {
-    // Initialize synchronously from localStorage if available
-    if (typeof window !== "undefined") {
-      return window.localStorage.getItem(COLOR_THEME_STORAGE_KEY) || fallbackThemeKey;
-    }
+    // Keep the server and hydration renders identical; storage is read after mount.
     return fallbackThemeKey;
   });
 

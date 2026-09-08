@@ -20,7 +20,7 @@ export default function ThemeColorSync() {
     themeColorMeta.setAttribute("content", "#ffffff");
 
     // Set light favicon
-    const faviconUrl = "https://res.cloudinary.com/dyigmfiar/image/upload/v1778833118/light_cxol3v.ico";
+    const faviconUrl = "https://res.cloudinary.com/dyigmfiar/image/upload/v1788861530/15842485-removebg-preview_fsbgha.ico";
     const timestamp = new Date().getTime();
 
     // Update or create favicon links
@@ -58,7 +58,7 @@ export default function ThemeColorSync() {
   useEffect(() => {
     if (!initialized || typeof document === "undefined") return;
 
-    const faviconUrl = "https://res.cloudinary.com/dyigmfiar/image/upload/v1778833118/light_cxol3v.ico";
+    const faviconUrl = "https://res.cloudinary.com/dyigmfiar/image/upload/v1788861530/15842485-removebg-preview_fsbgha.ico";
     const timestamp = new Date().getTime();
 
     document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]').forEach(link => {

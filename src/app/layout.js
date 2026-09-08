@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Codership AI - Collaborative Code Editor for Students",
-  description: "A collaborative code editor built for students to learn and practice coding together in real-time.",
+  title: "ਅੰਗਰੇਜ਼ੀ ਸਿੱਖੋ - IELTS ਪ੍ਰੈਕਟਿਸ ਅਤੇ ਕੋਡਿੰਗ ਸਿੱਖਣ ਲਈ ਸਹਿਯੋਗੀ ਪਲੇਟਫਾਰਮ ",
+  description: "ਅੰਗਰੇਜ਼ੀ ਸਿੱਖੋ - IELTS ਪ੍ਰੈਕਟਿਸ ਅਤੇ ਕੋਡਿੰਗ ਸਿੱਖਣ ਲਈ ਸਹਿਯੋਗੀ ਪਲੇਟਫਾਰਮ. ਇੱਕ ਸਹਿਯੋਗੀ ਕੋਡ ਐਡੀਟਰ ਜੋ ਵਿਦਿਆਰਥੀਆਂ ਲਈ ਬਣਾਇਆ ਗਿਆ ਹੈ ਤਾਂ ਜੋ ਉਹ ਅਸਲ ਸਮੇਂ ਵਿੱਚ ਇਕੱਠੇ ਕੋਡਿੰਗ ਸਿੱਖਣ ਅਤੇ ਅਭਿਆਸ ਕਰਨ.",
   keywords: "code editor, collaborative coding, students, real-time code sharing, coding practice",
   authors: [{ name: "Codership AI" }],
   creator: "Codership AI",
@@ -26,8 +26,8 @@ export const metadata = {
     apple: "https://res.cloudinary.com/dyigmfiar/image/upload/v1778833118/light_cxol3v.ico",
   },
   openGraph: {
-    title: "Codership AI - Collaborative Code Editor for Students",
-    description: "A collaborative code editor built for students to learn and practice coding together in real-time.",
+    title: "ਅੰਗਰੇਜ਼ੀ ਸਿੱਖੋ - IELTS ਪ੍ਰੈਕਟਿਸ ਅਤੇ ਕੋਡਿੰਗ ਸਿੱਖਣ ਲਈ ਸਹਿਯੋਗੀ ਪਲੇਟਫਾਰਮ ",
+    description: "ਅੰਗਰੇਜ਼ੀ ਸਿੱਖੋ - IELTS ਪ੍ਰੈਕਟਿਸ ਅਤੇ ਕੋਡਿੰਗ ਸਿੱਖਣ ਲਈ ਸਹਿਯੋਗੀ ਪਲੇਟਫਾਰਮ. ਇੱਕ ਸਹਿਯੋਗੀ ਕੋਡ ਐਡੀਟਰ ਜੋ ਵਿਦਯਆਰਥੀਆਂ ਲਈ ਬਣਾਇਆ ਗਿਆ ਹੈ ਤਾਂ ਜੋ ਉਹ ਅਸਲ ਸਮੇਂ ਵਿੱਚ ਇਕੱਠੇ ਕੋਡਿੰਗ ਸਿੱਖਣ ਅતੇ ਅભਿਆਸ ਕਰਨ.",
     type: "website",
     locale: "en_US",
     images: [
@@ -41,7 +41,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Codership AI - Collaborative Code Editor for Students",
+    title: "ਅੰਗਰੇਜ਼ੀ ਸਿੱਖੋ - IELTS ਪ੍ਰੈਕਟਿਸ ਅਤੇ ਕੋਡਿੰਗ ਸਿੱਖਣ ਲਈ ਸਹਿਯੋਗੀ ਪਲੇਟਫਾਰਮ ",
     description: "A collaborative code editor built for students to learn and practice coding together in real-time.",
     images: ["https://res.cloudinary.com/dyigmfiar/image/upload/v1778833118/light_cxol3v.ico"],
   },
@@ -73,13 +73,13 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <head>
         <SEOSchema />
         {/* Theme initialization - runs before page render */}
         <script
           dangerouslySetInnerHTML={{ __html: themeInitScript }}
-          suppressHydrationWarning
         />
       </head>
       <body className="min-h-full flex flex-col">

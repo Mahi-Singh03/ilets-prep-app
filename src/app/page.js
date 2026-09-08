@@ -115,22 +115,7 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
-              style={{ 
-                backgroundColor: 'var(--accent)',
-                borderColor: 'var(--border)',
-                borderWidth: '1px'
-              }}
-            >
-              <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: 'var(--success)' }}></span>
-              <span className="text-sm font-medium" style={{ color: 'var(--text)' }}>
-                #1 IELTS Preparation Platform
-              </span>
-            </motion.div>
+
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}

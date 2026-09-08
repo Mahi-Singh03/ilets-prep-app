@@ -11,14 +11,14 @@ export default function SEOSchema() {
         "logo": [
           {
             "@type": "ImageObject",
-            "url": "https://res.cloudinary.com/dyigmfiar/image/upload/v1778833118/light_cxol3v.ico",
+            "url": "https://res.cloudinary.com/dyigmfiar/image/upload/v1788861530/15842485-removebg-preview_fsbgha.ico",
             "width": 32,
             "height": 32,
             "name": "Codership AI Light Logo",
           },
           {
             "@type": "ImageObject",
-            "url": "https://res.cloudinary.com/dyigmfiar/image/upload/v1778833117/dark_c4x0ww.ico",
+            "url": "https://res.cloudinary.com/dyigmfiar/image/upload/v1788861530/15842485-removebg-preview_fsbgha.ico",
             "width": 32,
             "height": 32,
             "name": "Codership AI Dark Logo",
