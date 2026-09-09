@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useSession, signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FaPenFancy, FaArrowLeft, FaClock, FaLightbulb, 
@@ -16,6 +18,9 @@ import Link from 'next/link';
 
 const WritingPage = () => {
   const { colorTheme, activeTheme } = useTheme();
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const isGoogleUser = status === 'authenticated' && session?.user?.provider === 'google';
   const [taskType, setTaskType] = useState(2);
   const [essay, setEssay] = useState('');
   const [question, setQuestion] = useState('');
@@ -90,19 +95,14 @@ const WritingPage = () => {
     return () => clearInterval(autoSaveTimer);
   }, [essay, taskType, selectedQuestionId, isQuestionSelected, splitRatio]);
 
-  // Load saved draft and settings
+  // Load saved draft and settings only when the user returns to writing practice.
   useEffect(() => {
     const savedDraft = localStorage.getItem('ielts-writing-draft');
     const savedTask = localStorage.getItem('ielts-writing-task');
-    const savedQuestionId = localStorage.getItem('ielts-writing-question-id');
     const savedSplitRatio = localStorage.getItem('ielts-writing-split-ratio');
     
     if (savedDraft) setEssay(savedDraft);
     if (savedTask) setTaskType(Number(savedTask));
-    if (savedQuestionId) {
-      setSelectedQuestionId(savedQuestionId);
-      setIsQuestionSelected(true);
-    }
     if (savedSplitRatio) {
       setSplitRatio(Number(savedSplitRatio));
     }
@@ -355,10 +355,6 @@ const WritingPage = () => {
         }
 
         setAvailableQuestions(data);
-        const firstQuestion = data.find((item) => Number(item.taskType) === taskType);
-        if (firstQuestion?._id) {
-          setSelectedQuestionId(firstQuestion._id);
-        }
       } catch (loadError) {
         setQuestionLoadError(loadError.message);
       } finally {
@@ -387,6 +383,40 @@ const WritingPage = () => {
     if (band >= 6) return 'var(--warning)';
     return 'var(--error)';
   };
+
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--background)', color: 'var(--text)' }}>
+        <div className="text-center">
+          <FaSpinner className="animate-spin text-3xl mx-auto mb-3" style={{ color: 'var(--primary)' }} />
+          <p style={{ color: 'var(--muted)' }}>Checking Google login...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isGoogleUser) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: 'var(--background)', color: 'var(--text)' }}>
+        <div className="rounded-3xl border max-w-xl w-full p-8 text-center" style={{ backgroundColor: 'var(--cardBg)', borderColor: 'var(--border)' }}>
+          <div className="inline-flex items-center justify-center rounded-full p-4 mb-4" style={{ backgroundColor: 'var(--accent)' }}>
+            <FaBook style={{ color: 'var(--primary)' }} className="text-3xl" />
+          </div>
+          <h1 className="text-3xl font-black mb-3">Google Login Required</h1>
+          <p className="text-sm mb-6" style={{ color: 'var(--muted)' }}>
+            Sign in with Google to open the IELTS writing task chooser and practice question content.
+          </p>
+          <button
+            className="px-6 py-3 rounded-2xl font-bold shadow-sm"
+            style={{ backgroundColor: 'var(--primary)', color: '#fff' }}
+            onClick={() => signIn('google', { callbackUrl: '/writing' })}
+          >
+            Continue with Google
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div 
@@ -795,6 +825,19 @@ const WritingPage = () => {
                 }}
               >
                 {question}
+              </div>
+              <div className="mt-3 flex items-center justify-between gap-3 rounded-xl p-3" style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--border)' }}>
+                <div className="flex items-center gap-2">
+                  <FaBook style={{ color: 'var(--primary)' }} />
+                  <span className="text-xs font-bold" style={{ color: 'var(--text)' }}>IELTS Typing Lab</span>
+                </div>
+                <button
+                  className="px-4 py-2 rounded-xl font-bold text-xs"
+                  style={{ backgroundColor: 'var(--primary)', color: '#fff' }}
+                  onClick={() => router.push('/typing')}
+                >
+                  Open Typing Practice
+                </button>
               </div>
             </motion.div>
 
