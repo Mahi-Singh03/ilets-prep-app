@@ -139,6 +139,43 @@ export default function TypingPracticePage() {
     }
   }, [status]);
 
+  const loadWords = async () => {
+    setLoading(true);
+    setFeedback("Generating IELTS words...");
+    setMessageType("neutral");
+
+    try {
+      const response = await fetch("/api/typing/words");
+      const data = await response.json();
+
+      if (Array.isArray(data.words) && data.words.length >= 1) {
+        const nextWords = data.words;
+        setWords(nextWords);
+        setCurrentWord(nextWords[0]);
+        setTyped("");
+        setSource(data.source || "curated");
+        setFeedback("Fresh vocabulary loaded");
+        setMessageType("success");
+        return;
+      }
+
+      setFeedback("Using fallback vocabulary");
+      setMessageType("neutral");
+    } catch (error) {
+      setFeedback("Could not fetch Gemini suggestions");
+      setMessageType("error");
+    } finally {
+      setLoading(false);
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
+  };
+
+  useEffect(() => {
+    if (status === 'authenticated' && isGoogleUser && accessState?.authenticated && accessState?.canAccess) {
+      loadWords();
+    }
+  }, [status, isGoogleUser, accessState?.authenticated, accessState?.canAccess]);
+
   if (status === 'loading') {
     return (
       <main className="min-h-screen flex items-center justify-center" style={{ background: "var(--background)", color: "var(--text)" }}>
@@ -209,41 +246,6 @@ export default function TypingPracticePage() {
       </main>
     );
   }
-
-  const loadWords = async () => {
-    setLoading(true);
-    setFeedback("Generating IELTS words...");
-    setMessageType("neutral");
-
-    try {
-      const response = await fetch("/api/typing/words");
-      const data = await response.json();
-
-      if (Array.isArray(data.words) && data.words.length >= 1) {
-        const nextWords = data.words;
-        setWords(nextWords);
-        setCurrentWord(nextWords[0]);
-        setTyped("");
-        setSource(data.source || "curated");
-        setFeedback("Fresh vocabulary loaded");
-        setMessageType("success");
-        return;
-      }
-
-      setFeedback("Using fallback vocabulary");
-      setMessageType("neutral");
-    } catch (error) {
-      setFeedback("Could not fetch Gemini suggestions");
-      setMessageType("error");
-    } finally {
-      setLoading(false);
-      setTimeout(() => inputRef.current?.focus(), 50);
-    }
-  };
-
-  useEffect(() => {
-    loadWords();
-  }, []);
 
   const handleTyping = (event) => {
     const nextValue = event.target.value;
