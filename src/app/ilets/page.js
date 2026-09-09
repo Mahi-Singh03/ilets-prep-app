@@ -243,6 +243,18 @@ const AdminDashboard = () => {
           </motion.div>
         </motion.div>
 
+        <section className="mb-6 rounded-2xl p-4" style={{ backgroundColor: 'var(--cardBg)', border: '1px solid var(--border)' }}>
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div>
+              <div className="text-xs font-black uppercase tracking-[.2em]" style={{ color: 'var(--muted)' }}>User Approval</div>
+              <div className="text-sm mt-2" style={{ color: 'var(--text)' }}>Manage Google users who need app access.</div>
+            </div>
+            <Link href="/ilets/useracess" className="px-5 py-3 rounded-2xl font-bold" style={{ backgroundColor: 'var(--primary)', color: '#fff' }}>
+              Manage Access
+            </Link>
+          </div>
+        </section>
+
         {/* Action Cards Grid */}
         <motion.div
           initial={{ opacity: 0 }}

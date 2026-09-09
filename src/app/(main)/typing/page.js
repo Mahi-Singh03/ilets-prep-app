@@ -102,6 +102,7 @@ export default function TypingPracticePage() {
   const { colorTheme, activeTheme } = useTheme();
   const { data: session, status } = useSession();
   const isGoogleUser = status === 'authenticated' && session?.user?.provider === 'google';
+  const hasGoogleAccess = Boolean(session?.user?.canAccess);
   const [words, setWords] = useState(fallbackWords);
   const [currentWord, setCurrentWord] = useState(fallbackWords[0]);
   const [typed, setTyped] = useState("");
@@ -145,6 +146,29 @@ export default function TypingPracticePage() {
             onClick={() => signIn('google', { callbackUrl: '/typing' })}
           >
             Continue with Google
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  if (!hasGoogleAccess) {
+    return (
+      <main className="min-h-screen flex items-center justify-center px-4" style={{ background: "var(--background)", color: "var(--text)" }}>
+        <div className="rounded-3xl border max-w-xl w-full p-8 text-center" style={{ background: "var(--card-bg)", borderColor: "var(--border)" }}>
+          <div className="inline-flex items-center justify-center rounded-full p-4 mb-4" style={{ backgroundColor: "var(--accent)" }}>
+            <XCircle size={30} style={{ color: "var(--error)" }} />
+          </div>
+          <h1 className="text-3xl font-black mb-3">Access Denied</h1>
+          <p className="text-sm mb-6" style={{ color: "var(--muted)" }}>
+            Your Google account is waiting for admin approval. Please ask the administrator to grant access.
+          </p>
+          <button
+            className="px-6 py-3 rounded-2xl font-bold"
+            style={{ backgroundColor: "var(--primary)", color: "#fff" }}
+            onClick={() => signIn('google', { callbackUrl: '/typing' })}
+          >
+            Try Again
           </button>
         </div>
       </main>

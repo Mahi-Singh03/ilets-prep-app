@@ -113,12 +113,14 @@ export const authOptions = {
           user.provider = account.provider;
 
           if (!existingUser) {
-            // Create new user with OAuth profile image
+            // Create new user with OAuth profile image and default access denied
             const newUser = new User({
               name: user.name,
               email: user.email,
               image: user.image,
               provider: account.provider,
+              canAccess: false,
+              role: 'student',
             });
             await newUser.save();
             console.log(`✅ New ${account.provider} user created:`, { name: user.name, email: user.email, image: user.image });
@@ -133,23 +135,35 @@ export const authOptions = {
               existingUser.name = user.name;
               updated = true;
             }
+            if (existingUser.provider !== account.provider) {
+              existingUser.provider = account.provider;
+              updated = true;
+            }
             if (updated) {
               await existingUser.save();
               console.log(`✅ User updated with ${account.provider} data:`, { name: existingUser.name, image: existingUser.image });
             }
           }
           
-          // Fetch fresh user data to get applicantId
+          // Fetch fresh user data to get applicantId and access state
           const currentUser = existingUser || await User.findOne({ email: user.email });
           if (currentUser) {
             user.id = currentUser._id.toString();
             user.applicantId = currentUser.applicantId?.toString();
+            user.canAccess = Boolean(currentUser.canAccess);
+            user.role = currentUser.role || 'student';
+          }
+
+          if (account.provider === 'google' && currentUser && !currentUser.canAccess) {
+            console.warn(`⛔ Google login denied for ${user.email} until admin grants access.`);
+            return false;
           }
           
           console.log(`✅ SignIn successful for ${account.provider}:`, { 
             name: user.name, 
             email: user.email, 
             provider: user.provider,
+            canAccess: user.canAccess,
             hasImage: !!user.image 
           });
           
@@ -170,6 +184,8 @@ export const authOptions = {
         token.provider = account?.provider || user.provider;
         token.applicantId = user.applicantId;
         token.githubUsername = profile?.login;
+        token.canAccess = Boolean(user.canAccess);
+        token.role = user.role || 'student';
         
         // Store GitHub access token for API calls
         if (account?.provider === "github" && account?.access_token) {
@@ -180,9 +196,25 @@ export const authOptions = {
           name: token.name, 
           email: token.email,
           provider: token.provider,
+          canAccess: token.canAccess,
           hasImage: !!token.image 
         });
       }
+
+      if (!user && token?.email) {
+        try {
+          await connectDB();
+          const dbUser = await User.findOne({ email: token.email });
+          if (dbUser) {
+            token.canAccess = Boolean(dbUser.canAccess);
+            token.role = dbUser.role || 'student';
+            token.provider = dbUser.provider || token.provider;
+          }
+        } catch (error) {
+          console.error("JWT DB access sync error:", error);
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
@@ -195,16 +227,19 @@ export const authOptions = {
         session.user.applicantId = token.applicantId;
         session.user.githubUsername = token.githubUsername;
         session.user.githubAccessToken = token.githubAccessToken;
+        session.user.canAccess = Boolean(token.canAccess);
+        session.user.role = token.role || 'student';
 
         console.log(`✅ Session callback - Session updated for ${token.provider}:`, { 
           name: session.user.name, 
           email: session.user.email,
           provider: session.user.provider,
+          canAccess: session.user.canAccess,
           hasImage: !!session.user.image 
         });
 
         // Fallback: if user data is still incomplete, fetch from database
-        if (session?.user?.email && (!session.user.name || !session.user.image)) {
+        if (session?.user?.email && (!session.user.name || !session.user.image || typeof session.user.canAccess === 'undefined')) {
           try {
             await connectDB();
             const dbUser = await User.findOne({ email: session.user.email });
@@ -224,7 +259,9 @@ export const authOptions = {
               if (!session.user.applicantId) {
                 session.user.applicantId = dbUser.applicantId?.toString();
               }
-              console.log(`✅ Session completed from DB:`, { name: session.user.name, provider: session.user.provider });
+              session.user.canAccess = Boolean(dbUser.canAccess);
+              session.user.role = dbUser.role || 'student';
+              console.log(`✅ Session completed from DB:`, { name: session.user.name, provider: session.user.provider, canAccess: session.user.canAccess });
             }
           } catch (error) {
             console.error("❌ Error fetching user in session callback:", error);

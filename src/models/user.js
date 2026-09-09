@@ -21,6 +21,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'credentials', // google, facebook, credentials
   },
+  canAccess: {
+    type: Boolean,
+    default: false,
+  },
+  role: {
+    type: String,
+    default: 'student',
+  },
   applicantId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Applicant',

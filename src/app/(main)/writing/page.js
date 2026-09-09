@@ -21,6 +21,7 @@ const WritingPage = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
   const isGoogleUser = status === 'authenticated' && session?.user?.provider === 'google';
+  const hasGoogleAccess = Boolean(session?.user?.canAccess);
   const [taskType, setTaskType] = useState(2);
   const [essay, setEssay] = useState('');
   const [question, setQuestion] = useState('');
@@ -412,6 +413,29 @@ const WritingPage = () => {
             onClick={() => signIn('google', { callbackUrl: '/writing' })}
           >
             Continue with Google
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!hasGoogleAccess) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: 'var(--background)', color: 'var(--text)' }}>
+        <div className="rounded-3xl border max-w-xl w-full p-8 text-center" style={{ backgroundColor: 'var(--cardBg)', borderColor: 'var(--border)' }}>
+          <div className="inline-flex items-center justify-center rounded-full p-4 mb-4" style={{ backgroundColor: 'var(--accent)' }}>
+            <FaExclamationTriangle style={{ color: 'var(--error)' }} className="text-3xl" />
+          </div>
+          <h1 className="text-3xl font-black mb-3">Access Denied</h1>
+          <p className="text-sm mb-6" style={{ color: 'var(--muted)' }}>
+            Your Google account is waiting for admin approval. Please ask the administrator to grant access.
+          </p>
+          <button
+            className="px-6 py-3 rounded-2xl font-bold shadow-sm"
+            style={{ backgroundColor: 'var(--primary)', color: '#fff' }}
+            onClick={() => signIn('google', { callbackUrl: '/writing' })}
+          >
+            Try Again
           </button>
         </div>
       </div>
