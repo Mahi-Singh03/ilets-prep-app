@@ -155,8 +155,7 @@ export const authOptions = {
           }
 
           if (account.provider === 'google' && currentUser && !currentUser.canAccess) {
-            console.warn(`⛔ Google login denied for ${user.email} until admin grants access.`);
-            return false;
+            console.warn(`⚠️ Google account ${user.email} signed in but access is pending admin approval.`);
           }
           
           console.log(`✅ SignIn successful for ${account.provider}:`, { 

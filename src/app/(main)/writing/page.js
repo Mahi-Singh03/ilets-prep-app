@@ -20,8 +20,9 @@ const WritingPage = () => {
   const { colorTheme, activeTheme } = useTheme();
   const router = useRouter();
   const { data: session, status } = useSession();
+  const [accessState, setAccessState] = useState(null);
   const isGoogleUser = status === 'authenticated' && session?.user?.provider === 'google';
-  const hasGoogleAccess = Boolean(session?.user?.canAccess);
+  const hasGoogleAccess = Boolean(accessState?.canAccess);
   const [taskType, setTaskType] = useState(2);
   const [essay, setEssay] = useState('');
   const [question, setQuestion] = useState('');
@@ -378,6 +379,27 @@ const WritingPage = () => {
     }
   }, [taskQuestions, selectedQuestionId]);
 
+  useEffect(() => {
+    const fetchAccess = async () => {
+      try {
+        const response = await fetch('/api/auth/access', { cache: 'no-store' });
+        if (!response.ok) {
+          return;
+        }
+        const data = await response.json();
+        setAccessState(data);
+      } catch (error) {
+        console.error('Unable to fetch access state:', error);
+      }
+    };
+
+    if (status === 'authenticated') {
+      fetchAccess();
+      const interval = setInterval(fetchAccess, 2500);
+      return () => clearInterval(interval);
+    }
+  }, [status]);
+
   const getBandColor = (band) => {
     if (band >= 8) return 'var(--success)';
     if (band >= 7) return 'var(--primary)';
@@ -419,7 +441,18 @@ const WritingPage = () => {
     );
   }
 
-  if (!hasGoogleAccess) {
+  if (accessState === null) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--background)', color: 'var(--text)' }}>
+        <div className="text-center">
+          <FaSpinner className="animate-spin text-3xl mx-auto mb-3" style={{ color: 'var(--primary)' }} />
+          <p style={{ color: 'var(--muted)' }}>Checking Google access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!accessState.authenticated || !accessState.canAccess) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: 'var(--background)', color: 'var(--text)' }}>
         <div className="rounded-3xl border max-w-xl w-full p-8 text-center" style={{ backgroundColor: 'var(--cardBg)', borderColor: 'var(--border)' }}>
@@ -427,8 +460,11 @@ const WritingPage = () => {
             <FaExclamationTriangle style={{ color: 'var(--error)' }} className="text-3xl" />
           </div>
           <h1 className="text-3xl font-black mb-3">Access Denied</h1>
-          <p className="text-sm mb-6" style={{ color: 'var(--muted)' }}>
-            Your Google account is waiting for admin approval. Please ask the administrator to grant access.
+          <p className="text-sm mb-2" style={{ color: 'var(--muted)' }}>
+            Your Google login is active, but the app is not approved yet.
+          </p>
+          <p className="text-sm font-bold mb-6" style={{ color: 'var(--primary)' }}>
+            {accessState?.message || 'Please subscribe to the AI to continue.'}
           </p>
           <button
             className="px-6 py-3 rounded-2xl font-bold shadow-sm"

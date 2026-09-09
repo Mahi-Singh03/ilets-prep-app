@@ -101,8 +101,8 @@ const fallbackWords = [
 export default function TypingPracticePage() {
   const { colorTheme, activeTheme } = useTheme();
   const { data: session, status } = useSession();
+  const [accessState, setAccessState] = useState(null);
   const isGoogleUser = status === 'authenticated' && session?.user?.provider === 'google';
-  const hasGoogleAccess = Boolean(session?.user?.canAccess);
   const [words, setWords] = useState(fallbackWords);
   const [currentWord, setCurrentWord] = useState(fallbackWords[0]);
   const [typed, setTyped] = useState("");
@@ -117,6 +117,27 @@ export default function TypingPracticePage() {
     if (!typed || !currentWord?.word) return 0;
     return Math.min(100, Math.round((typed.length / currentWord.word.length) * 100));
   }, [typed, currentWord]);
+
+  useEffect(() => {
+    const fetchAccess = async () => {
+      try {
+        const response = await fetch('/api/auth/access', { cache: 'no-store' });
+        if (!response.ok) {
+          return;
+        }
+        const data = await response.json();
+        setAccessState(data);
+      } catch (error) {
+        console.error('Unable to fetch access state:', error);
+      }
+    };
+
+    if (status === 'authenticated') {
+      fetchAccess();
+      const interval = setInterval(fetchAccess, 2500);
+      return () => clearInterval(interval);
+    }
+  }, [status]);
 
   if (status === 'loading') {
     return (
@@ -152,7 +173,18 @@ export default function TypingPracticePage() {
     );
   }
 
-  if (!hasGoogleAccess) {
+  if (accessState === null) {
+    return (
+      <main className="min-h-screen flex items-center justify-center" style={{ background: "var(--background)", color: "var(--text)" }}>
+        <div className="text-center">
+          <Sparkles className="mx-auto mb-3" size={34} style={{ color: "var(--primary)" }} />
+          <p style={{ color: "var(--muted)" }}>Checking Google access...</p>
+        </div>
+      </main>
+    );
+  }
+
+  if (!accessState.authenticated || !accessState.canAccess) {
     return (
       <main className="min-h-screen flex items-center justify-center px-4" style={{ background: "var(--background)", color: "var(--text)" }}>
         <div className="rounded-3xl border max-w-xl w-full p-8 text-center" style={{ background: "var(--card-bg)", borderColor: "var(--border)" }}>
@@ -160,8 +192,11 @@ export default function TypingPracticePage() {
             <XCircle size={30} style={{ color: "var(--error)" }} />
           </div>
           <h1 className="text-3xl font-black mb-3">Access Denied</h1>
-          <p className="text-sm mb-6" style={{ color: "var(--muted)" }}>
-            Your Google account is waiting for admin approval. Please ask the administrator to grant access.
+          <p className="text-sm mb-2" style={{ color: "var(--muted)" }}>
+            Your Google login is active, but the app is not approved yet.
+          </p>
+          <p className="text-sm font-bold mb-6" style={{ color: "var(--primary)" }}>
+            {accessState?.message || 'Please subscribe to the AI to continue.'}
           </p>
           <button
             className="px-6 py-3 rounded-2xl font-bold"
