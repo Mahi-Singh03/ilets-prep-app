@@ -164,7 +164,7 @@ export default function TypingPracticePage() {
           <button
             className="px-6 py-3 rounded-2xl font-bold"
             style={{ backgroundColor: "var(--primary)", color: "#fff" }}
-            onClick={() => signIn('google', { callbackUrl: '/typing' })}
+            onClick={() => signIn('google', { callbackUrl: '/typing', redirect: true, prompt: 'select_account' })}
           >
             Continue with Google
           </button>
@@ -201,7 +201,7 @@ export default function TypingPracticePage() {
           <button
             className="px-6 py-3 rounded-2xl font-bold"
             style={{ backgroundColor: "var(--primary)", color: "#fff" }}
-            onClick={() => signIn('google', { callbackUrl: '/typing' })}
+            onClick={() => signIn('google', { callbackUrl: '/typing', redirect: true, prompt: 'select_account' })}
           >
             Try Again
           </button>

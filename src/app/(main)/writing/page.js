@@ -432,7 +432,7 @@ const WritingPage = () => {
           <button
             className="px-6 py-3 rounded-2xl font-bold shadow-sm"
             style={{ backgroundColor: 'var(--primary)', color: '#fff' }}
-            onClick={() => signIn('google', { callbackUrl: '/writing' })}
+            onClick={() => signIn('google', { callbackUrl: '/writing', redirect: true, prompt: 'select_account' })}
           >
             Continue with Google
           </button>
@@ -469,7 +469,7 @@ const WritingPage = () => {
           <button
             className="px-6 py-3 rounded-2xl font-bold shadow-sm"
             style={{ backgroundColor: 'var(--primary)', color: '#fff' }}
-            onClick={() => signIn('google', { callbackUrl: '/writing' })}
+            onClick={() => signIn('google', { callbackUrl: '/writing', redirect: true, prompt: 'select_account' })}
           >
             Try Again
           </button>

@@ -21,6 +21,7 @@ export default function GoogleAccessManager({ adminToken }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [message, setMessage] = useState('');
 
   const loadUsers = async () => {
@@ -71,6 +72,35 @@ export default function GoogleAccessManager({ adminToken }) {
       setMessage(error.message || 'Unable to update access');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const deleteUser = async (userId) => {
+    try {
+      if (!userId) {
+        throw new Error('User id is missing.');
+      }
+
+      setDeleting(true);
+      const response = await fetch(`/api/admin/users?userId=${encodeURIComponent(userId)}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${adminToken || ''}`,
+        },
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Unable to delete user');
+      }
+
+      setMessage(data.message || 'User deleted.');
+      await loadUsers();
+    } catch (error) {
+      setMessage(error.message || 'Unable to delete user');
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -141,6 +171,14 @@ export default function GoogleAccessManager({ adminToken }) {
                   onClick={() => updateAccess(user._id, !user.canAccess)}
                 >
                   {saving ? 'Saving...' : user.canAccess ? 'Revoke Access' : 'Grant Access'}
+                </button>
+                <button
+                  disabled={deleting}
+                  className="rounded-2xl px-4 py-2 font-bold text-sm"
+                  style={{ backgroundColor: 'var(--error)', color: '#fff' }}
+                  onClick={() => deleteUser(user._id)}
+                >
+                  {deleting ? 'Deleting...' : 'Delete User'}
                 </button>
               </div>
             </div>

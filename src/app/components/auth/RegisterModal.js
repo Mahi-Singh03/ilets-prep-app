@@ -64,7 +64,11 @@ export default function RegisterModal({ isOpen, onClose, callbackUrl = "/" }) {
 
   const handleSocialLogin = (provider) => {
     console.log(`🔐 Initiating ${provider} login with callbackUrl:`, callbackUrl || "/");
-    signIn(provider, { callbackUrl: callbackUrl || "/" });
+    signIn(provider, {
+      callbackUrl: callbackUrl || "/",
+      redirect: true,
+      prompt: 'select_account',
+    });
   };
 
   if (!isOpen) return null;
